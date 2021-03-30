@@ -16,14 +16,24 @@
             function loadText(){
                 // Create XHR object
                 let xhr = new XMLHttpRequest();
+                let a = "today is a beautiful day";
                 // OPEN - type, url/file, async
                 console.log(xhr);
-                xhr.open('GET', 'sample.txt', true);
+                xhr.open('GET', 'sample.txt', true); // throwing cors error
 
                 xhr.onload = function (){
                     if(this.status == 200){ // 200 - OK
                         console.log(this.responseText);
                     }
+                }
+
+                xhr.onerror = function (){
+                    console.log("error message!");
+                }
+
+                // OPTIONAL - used for loaders
+                xhr.onprogress = function (){
+                    console.log("READYSTATE: ", xhr.readyState);
                 }
 
                 // send request
