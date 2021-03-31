@@ -9,6 +9,8 @@
     <body>
         <h1>JS Ajax & jQuery</h1>
         <button id="button">Get Text File</button>
+        <br><br>
+        <div id="text"></div>
         <script>
             // create event listener
             document.getElementById("button").addEventListener('click', loadText);
@@ -19,12 +21,16 @@
                 let a = "today is a beautiful day";
                 // OPEN - type, url/file, async
                 console.log(xhr);
-                xhr.open('GET', 'sample.txt', true); // throwing cors error
+                xhr.open('GET', 'https://api.github.com/users', true); // throwing cors error
 
                 xhr.onload = function (){
                     if(this.status == 200){ // 200 - OK
                         console.log(this.responseText);
-                    }
+                        document.getElementById("text").innerHTML = JSON.parse(this.responseText);
+                    } else if(this.status == 404)
+                    {
+                        document.getElementById('text').innerHTML = 'Not Found';
+                    } 
                 }
 
                 xhr.onerror = function (){
